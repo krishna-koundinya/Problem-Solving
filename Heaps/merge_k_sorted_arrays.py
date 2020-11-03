@@ -1,8 +1,8 @@
 # Source Elements of Programming for interviews
 
 # Merging k sorted arrays using Min Heap
-# Time Complexity: O(NKlog(K)), where N is the number of elements
-# in array and K is the number of nested arrays
+# Time Complexity: O(NKlog(K)), where N is the total number of 
+# elements in array and K is the number of nested arrays
 # Space Complexity: O(k) (extra space)
 
 import heapq
