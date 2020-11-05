@@ -4,9 +4,10 @@
 # Alternative solution for merge-k-sorted-arrays
 
 # Merging k sorted arrays using Min Heap
-# Time Complexity: O(NKlog(NK)), where N is the total number of 
+# Time Complexity: O(NKlog(K)), where N is the total number of 
 # elements in array and K is the number of nested arrays
 # Space Complexity: O(k) (extra space)
+
 
 
 class minHeap:
@@ -65,14 +66,39 @@ class minHeap:
         self.heap = arr
         for i in range(len(arr)-1, -1, -1):
             self.__minHeapify(i)
+
+def adjust_arrays(arrays):
+    maxi = max([len(element) for element in arrays])
+    for i in arrays:
+        n = len(i)
+        if n < maxi:
+            for j in range(n, maxi):
+                i.append(None)
+        else:
+            pass
+    return maxi, arrays
             
 def merge_sorted_arrays(arrays):
+    maxi, arrays = adjust_arrays(arrays)
     m = minHeap()
-    for i in range(len(arrays)):
-        for j in range(len(arrays[i])):
-            m.insert(arrays[i][j])
+    res = []
+    inner = 0
+    while inner < 1:
+        for outer in arrays:
+            if outer[inner] is not None:
+                m.insert(outer[inner])
+        
+        res.append(m.removeMin())
+        inner += 1
     
-    res = []    
+    while inner < maxi and m.getMin() is not None:
+        for outer in arrays:
+            if outer[inner] is not None:
+                m.insert(outer[inner])
+                res.append(m.removeMin())
+        
+        inner += 1
+    
     while m.getMin() is not None:
         res.append(m.removeMin())
         
